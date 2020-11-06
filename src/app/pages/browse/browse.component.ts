@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { RequestService } from '../../shared/services/request.service';
+import { Movie } from '../../shared/models/movie.model';
 
 @Component({
   selector: 'app-browse',
@@ -7,9 +10,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrowseComponent implements OnInit {
 
-  constructor() { }
+  movies: Movie[] = [];
 
-  ngOnInit(): void {
+  categoryName: string;
+
+  constructor(
+    private API: RequestService,
+    private activateRoute: ActivatedRoute
+  ) {
+    this.activateRoute.params.subscribe(params => {
+      this.categoryName = params['categoryName'];
+
+      this.getMoviesByCategoryName(this.categoryName);
+    })
   }
 
+  ngOnInit() {
+  }
+
+  getMoviesByCategoryName(categoryName: string) {
+    this.API.getMoviesByCategoryName(categoryName)
+      .subscribe(res => {
+        this.movies = res;
+        console.log('movies from browse: ', this.movies);
+      });
+  }
 }

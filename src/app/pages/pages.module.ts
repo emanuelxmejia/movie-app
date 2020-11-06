@@ -10,6 +10,8 @@ import { PersonComponent } from './person/person.component';
 import { SearchComponent } from './search/search.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
+import { SharedModule } from '../shared/shared.module';
+
 @NgModule({
   declarations: [
     BrowseComponent,
@@ -21,7 +23,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    SharedModule
   ]
 })
 export class PagesModule { }

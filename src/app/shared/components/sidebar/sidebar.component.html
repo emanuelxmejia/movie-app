@@ -2,5 +2,18 @@
     <h1 class="app-title">
         cinema
     </h1>
+
+    <ul>
+        <li [routerLink]="['/browse', 'popular']">popular</li>
+        <li [routerLink]="['/browse', 'top_rated']">top rated</li>
+        <li [routerLink]="['/browse', 'upcoming']">upcoming</li>
+    </ul>
+
+    <ul>
+        <li *ngFor="let movieGenre of movieGenres"
+            [routerLink]="['/genres', movieGenre.name]">
+            {{ movieGenre.name }}
+        </li>
+    </ul>
 </div>
 <!-- <p>sidebar works!</p> -->

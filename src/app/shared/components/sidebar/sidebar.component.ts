@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestService } from '../../services/request.service';
+import { MovieGenres } from '../../models/movie-genres.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  movieGenres: MovieGenres[] = [];
 
-  ngOnInit(): void {
+  constructor(
+    private API: RequestService
+  ) { }
+
+  ngOnInit() {
+    this.getMovieGenres();
+  }
+
+  getMovieGenres() {
+    this.API.getMovieGenres()
+        .subscribe(res => {
+          this.movieGenres = res;
+        });
   }
 
 }
