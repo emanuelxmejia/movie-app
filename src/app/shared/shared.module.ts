@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './material.module';
 
@@ -9,29 +9,32 @@ import { MaterialModule } from './material.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CardsComponent } from './components/cards/cards.component';
-import { RouterModule } from '@angular/router';
+import { FooterComponent } from './components/footer/footer.component';
 
 // --- dialogs
 
 // --- pipes
+import { NomovieposterPipe } from './pipes/nomovieposter.pipe';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     SidebarComponent,
-    CardsComponent
+    CardsComponent,
+    NomovieposterPipe,
+    FooterComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
-    // BrowserAnimationsModule,
     MaterialModule,
     RouterModule
   ],
   exports: [
     NavbarComponent,
     SidebarComponent,
-    CardsComponent
+    CardsComponent,
+    FooterComponent
   ]
 })
 export class SharedModule { }

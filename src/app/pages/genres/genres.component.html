@@ -1,1 +1,13 @@
-<p>genres works!</p>
+<div class="page">
+    <div class="page__header">
+        <h2 class="page__title">
+            {{ genreName }}
+        </h2>
+    </div>
+    <div class="page__body">
+        <app-cards [movies]="movies"></app-cards>
+    </div>
+    <div class="page__footer">
+        <app-footer></app-footer>
+    </div>
+</div>

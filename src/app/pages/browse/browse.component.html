@@ -1,5 +1,13 @@
 <div class="page">
+    <div class="page__header">
+        <h2 class="page__title">
+            {{ categoryName }}
+        </h2>
+    </div>
     <div class="page__body">
-        <p>browse works!</p>
+        <app-cards [movies]="movies"></app-cards>
+    </div>
+    <div class="page__footer">
+        <app-footer></app-footer>
     </div>
 </div>

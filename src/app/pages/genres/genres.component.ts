@@ -45,7 +45,7 @@ export class GenresComponent implements OnInit {
   getMoviesByGenreId(genreId: number) {
     this.API.getMoviesByGenreId(genreId)
       .subscribe(res => {
-        this.movies = res;
+        this.movies = res['results'];
         console.log('movies from genre: ', this.movies);
       });
   }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RequestService } from '../../shared/services/request.service';
 import { Movie } from '../../shared/models/movie.model';
-
 @Component({
   selector: 'app-browse',
   templateUrl: './browse.component.html',
@@ -16,12 +15,13 @@ export class BrowseComponent implements OnInit {
 
   constructor(
     private API: RequestService,
-    private activateRoute: ActivatedRoute
+    private activateRoute: ActivatedRoute,
   ) {
     this.activateRoute.params.subscribe(params => {
       this.categoryName = params['categoryName'];
 
       this.getMoviesByCategoryName(this.categoryName);
+      this.getCategoryName(this.categoryName);
     })
   }
 
@@ -31,8 +31,23 @@ export class BrowseComponent implements OnInit {
   getMoviesByCategoryName(categoryName: string) {
     this.API.getMoviesByCategoryName(categoryName)
       .subscribe(res => {
-        this.movies = res;
+        this.movies = res['results'];
         console.log('movies from browse: ', this.movies);
       });
+  }
+
+  getCategoryName(categoryName) {
+    switch(categoryName) {
+      case 'popular':
+        this.categoryName = 'Popular';
+        break;
+      case 'top_rated':
+        this.categoryName = 'Top Rated';
+        break;
+      case 'upcoming':
+        this.categoryName = 'Upcoming';
+        break;
+      default: 'Popular';
+    }
   }
 }

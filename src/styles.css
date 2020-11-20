@@ -16,6 +16,51 @@ html {
 }
 
 body {
-    color: #444;
+    color: #eeeeee;
+    background-color: #222429;
     font-family: 'Inter', sans-serif;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+/* row styles
+------------- */
+.row {
+    position: relative;
+}
+
+.row--flex {
+    display: flex;
+}
+
+.row--flex-align-center {
+    align-items: center;
+}
+
+.row--flex-space-between {
+    justify-content: space-between;
+}
+
+.row--flex-end {
+    justify-content: flex-end;
+}
+
+/* col styles
+------------- */
+.col {
+    position: relative;
+}
+
+.col--flex {
+    display: flex;
+}
+
+@media only screen and (min-width: 768px) {
+
+}
+
+@media only screen and (min-width: 1024px) {
+
 }
