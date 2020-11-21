@@ -10,6 +10,7 @@
 }
 
 html {
+    scroll-behavior: smooth;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -55,6 +56,10 @@ body {
 
 .col--flex {
     display: flex;
+}
+
+.col--flex-align-center {
+    align-items: center;
 }
 
 @media only screen and (min-width: 768px) {

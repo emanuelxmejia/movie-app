@@ -36,22 +36,19 @@
                 </a>
             </li>
         </ul>
-        <div [class.fixed]="isFixed">
-            <p class="sidebar__section">
-                Genres
-            </p>
-            <ul class="menu"
-            [ngClass]="{ 'menu--scroll' : isMenuScroll && isFixed }">
-                <li class="menu__item"
-                [routerLink]="['/genres', movieGenre.name]"
-                *ngFor="let movieGenre of movieGenres"
-                routerLinkActive="active"
-                (click)="isMenuOpen = !isMenuOpen">
-                    <a class="menu__link">
-                        {{ movieGenre.name }}
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <p class="sidebar__section">
+            Genres
+        </p>
+        <ul class="menu">
+            <li class="menu__item"
+            [routerLink]="['/genres', movieGenre.name]"
+            *ngFor="let movieGenre of movieGenres"
+            routerLinkActive="active"
+            (click)="isMenuOpen = !isMenuOpen">
+                <a class="menu__link">
+                    {{ movieGenre.name }}
+                </a>
+            </li>
+        </ul>
     </div>
 </div>

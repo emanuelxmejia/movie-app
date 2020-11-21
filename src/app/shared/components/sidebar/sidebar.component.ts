@@ -17,14 +17,8 @@ export class SidebarComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize() {
     if (window.innerWidth >= 1025) { this.isMenuOpen = false; }
-    this.addScrollToMenu();
-  }
-
-  @HostListener('window:scroll', ['$event']) 
-  doSomething(event: Event) {
-    window.pageYOffset >= 300 ? this.isFixed = true : this.isFixed = false;
   }
 
   movieGenres: MovieGenres[] = [];
@@ -43,8 +37,6 @@ export class SidebarComponent implements OnInit {
     this.subscription = this.sidebarSerice.getIsMenuOpen().subscribe(data => {
       this.isMenuOpen = data;
     });
-
-    this.addScrollToMenu();
   }
 
   ngOnInit() {
@@ -56,18 +48,6 @@ export class SidebarComponent implements OnInit {
         .subscribe(res => {
           this.movieGenres = res;
         });
-  }
-
-  addScrollToMenu() {
-    // if (window.innerHeight <= 619) {
-    //   console.log('estas en una pantalla de 619 o menor');
-    //   this.isMenuScroll = true;
-    // } else {
-    //   console.log('estas en una pantalla mas grande de 619');
-    //   this.isMenuScroll = false;
-    // }
-
-    window.innerHeight <= 750 ? this.isMenuScroll = true : this.isMenuScroll = false;
   }
 
 }
