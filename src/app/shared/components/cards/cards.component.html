@@ -1,6 +1,7 @@
 <div class="cards">
     <div class="card"
-    *ngFor="let movie of movies">
+    *ngFor="let movie of movies"
+    (click)="goToMovieDetails(movie);">
         <div class="card__header">
             <img
                 loading="lazy"

@@ -26,7 +26,7 @@ const routes: Routes = [
     component: GenresComponent
   },
   {
-    path: 'movie/:categoryName/:movieId',
+    path: 'movie/:movieId',
     component: MovieComponent
   },
   {
@@ -34,7 +34,7 @@ const routes: Routes = [
     component: MovieComponent
   },
   {
-    path: 'person/personId',
+    path: 'person/:personId',
     component: PersonComponent
   },
   {

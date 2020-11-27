@@ -16,6 +16,17 @@ html {
             box-sizing: border-box;
 }
 
+html::-webkit-scrollbar {
+    width: 3px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #c0c0c0;
+}
+
 body {
     color: #eeeeee;
     background-color: #222429;
@@ -24,6 +35,10 @@ body {
 
 .pointer {
     cursor: pointer;
+}
+
+.hidden {
+    display: none;
 }
 
 /* row styles
@@ -48,6 +63,10 @@ body {
     justify-content: flex-end;
 }
 
+.row--mb-10 {
+    margin-bottom: 10px;
+}
+
 /* col styles
 ------------- */
 .col {
@@ -62,10 +81,37 @@ body {
     align-items: center;
 }
 
+.col--overflow-hidden {
+    overflow: hidden;
+}
+
+/* text styles
+-------------- */
+.text {
+    font-weight: 400;
+}
+
+.text--bold {
+    font-weight: 600;
+}
+
+/* custom dialog styles
+----------------------- */
+.custom-dialog .mat-dialog-container {
+    padding: 3px;
+}
+
+
 @media only screen and (min-width: 768px) {
 
 }
 
 @media only screen and (min-width: 1024px) {
 
+}
+
+@media only screen and (min-width: 1366px) {
+    .row--mt-16 {
+        margin-top: 16px;
+    }
 }

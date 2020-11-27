@@ -15,7 +15,7 @@
 }
 
 .sidebar__body {
-    padding: 0 10px 10px 10px;
+    /* padding: 0 10px 10px 10px; */
     position: absolute;
     top: 80px; bottom: 0; left: 0; right: 0;
     overflow: auto;
@@ -34,6 +34,7 @@
 }
 
 .sidebar__section {
+    padding: 0 15px;
     color: #cc4785;
     font-weight: 600;
 }
@@ -45,10 +46,10 @@
 }
 
 .menu__item {
-    padding: 12px 10px;
+    padding: 12px 15px;
     outline: none;
     cursor: pointer;
-    border-radius: 3px;
+    /* border-radius: 3px; */
     transition: .2s ease all;
 }
 
@@ -62,7 +63,7 @@
 
 .app-title {
     margin: 0;
-    padding: 30px 10px;
+    padding: 30px 15px;
     color: #fff;
     font-family: 'Prosto One', cursive;
 }

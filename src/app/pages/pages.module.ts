@@ -19,7 +19,7 @@ import { SharedModule } from '../shared/shared.module';
     MovieComponent,
     PersonComponent,
     SearchComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,

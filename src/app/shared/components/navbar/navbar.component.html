@@ -1,48 +1,21 @@
 <div class="navbar"
     [class.navbar--sticky]="isNavbarSticky">
     <div class="row row--flex row--flex-align-center row--flex-space-between">
-        <div class="col col--flex">
-            <span class="material-icons navbar__icon pointer"
-                (click)="sendIsOpen();">
-                menu
-            </span>
-        </div>
-        <div class="col col--flex">
-            <span class="material-icons navbar__icon pointer"
-                (click)="isOpenSearchBar = true;">
-                search
-            </span>
-            <div class="form form--desktop">
-                <div class="form__group form__group--desktop">
-                    <span class="material-icons form__icon">
-                        search
-                    </span>
-                    <input
-                        type="text"
-                        class="form__control form__control--desktop"
-                        #searchValue
-                        placeholder="Search movie"
-                        (keyup.enter)="goToSearch(searchValue.value); searchValue.value = '';"/>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="search"
-    [class.search--open]="isOpenSearchBar">
-        <div class="row row--flex row--flex-align-center">
-            <span class="material-icons pointer"
-            (click)="isOpenSearchBar = false;">
-                navigate_before
-            </span>
-            <div class="form">
-                <div class="form__group">
-                    <input
-                        type="text"
-                        class="form__control"
-                        #searchValue
-                        placeholder="Search movie"
-                        (keyup.enter)="goToSearch(searchValue.value); searchValue.value = '';"/>
-                </div>
+        <span class="material-icons navbar__icon pointer"
+            (click)="sendIsOpen();">
+            menu
+        </span>
+        <div class="form">
+            <div class="form__group">
+                <span class="material-icons form__icon">
+                    search
+                </span>
+                <input
+                    type="text"
+                    class="form__control"
+                    #searchValue
+                    placeholder="Search a movie"
+                    (keyup.enter)="goToSearch(searchValue.value); searchValue.value = '';"/>
             </div>
         </div>
     </div>

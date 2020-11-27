@@ -12,9 +12,11 @@ import { CardsComponent } from './components/cards/cards.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 // --- dialogs
+import { MovieTrailerComponent } from './components/dialogs/movie-trailer/movie-trailer.component';
 
 // --- pipes
 import { NomovieposterPipe } from './pipes/nomovieposter.pipe';
+import { DomSanitizerPipe } from './pipes/dom-sanitizer.pipe';
 
 @NgModule({
   declarations: [
@@ -22,19 +24,22 @@ import { NomovieposterPipe } from './pipes/nomovieposter.pipe';
     SidebarComponent,
     CardsComponent,
     NomovieposterPipe,
-    FooterComponent
+    FooterComponent,
+    MovieTrailerComponent,
+    DomSanitizerPipe,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
     NavbarComponent,
     SidebarComponent,
     CardsComponent,
-    FooterComponent
+    FooterComponent,
+    MovieTrailerComponent
   ]
 })
 export class SharedModule { }

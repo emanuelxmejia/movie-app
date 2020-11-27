@@ -1,1 +1,107 @@
-<p>movie works!</p>
+<div class="movie">
+    <div class="movie__background"
+    [ngStyle]="{ 'background-image': getMovieBackdrop(movieDetails) }">
+        <div class="row row--flex row--flex-align-center row--flex-space-between">
+            <span class="material-icons pointer">
+                west
+            </span>
+            <div class="movie__raiting movie__raiting--mobile">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart-fill" fill="#cc4785" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+                </svg>
+                <span style="margin-left: 5px;">
+                    {{ movieDetails.vote_average }}
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <h2 class="movie__title">
+                {{ movieDetails.title }}
+            </h2>
+            <div class="row row--flex row--flex-align-center row--flex-space-between">
+                <div>
+                    <span>
+                        {{ movieDetails.release_date | date:'yyyy' }}
+                    </span> &middot;
+                    <span class="pointer"
+                        *ngFor="let movieGenre of movieGenres"
+                        (click)="goToMovieGenre(movieGenre);">
+                        {{ movieGenre.name }}
+                    </span>
+                    <span> &middot;
+                        {{ movieDetails.runtime }} min
+                    </span>
+                </div>
+                <div class="movie__raiting movie__raiting--desktop">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart-fill" fill="#cc4785" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+                    </svg>
+                    <span style="margin-left: 5px;">
+                        {{ movieDetails.vote_average }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="movie__details">
+        <div class="col">
+            <div class="row">
+                <p class="text text--bold">
+                    OVERVIEW
+                </p>
+                <small>
+                    {{ movieDetails.overview }}
+                </small>
+            </div>
+            <div class="row"
+            *ngIf="movieDetails.tagline">
+                <p class="text text--bold">
+                    TAGLINE
+                </p>
+                <small>
+                    {{ movieDetails.tagline }}
+                </small>
+            </div>
+        </div>
+        <div class="col col--overflow-hidden">
+            <div class="row row--grid row--mt-16">
+                <button
+                    type="button"
+                    class="btn btn--black"
+                    (click)="openMovieTrailerDialog();">
+                    Trailer
+                </button>
+                <a
+                    target="blank"
+                    class="btn btn--pink"
+                    [href]="movieDetails.homepage"
+                    *ngIf="movieDetails.homepage">
+                    Website
+                </a>
+            </div>
+            <div class="row">
+                <p class="text text--bold">
+                    STARRING
+                </p>
+                <div class="slider">
+                    <div class="slider__slide"
+                    *ngFor="let person of movieCast"
+                    (click)="goToPersonByPersonId(person.id)">
+                        <img
+                            class="slider__image"
+                            loading="lazy"
+                            src="{{ profilePath + person.profile_path }}"
+                            [alt]="person.name" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="movie__recommendations">
+        <h2>Recommended</h2>
+        <app-cards [movies]="movies"></app-cards>
+    </div>
+    <div class="movie__footer">
+        <app-footer></app-footer>
+    </div>
+</div>

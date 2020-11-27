@@ -15,7 +15,7 @@ export class NomovieposterPipe implements PipeTransform {
       if (movie.backdrop_path) {
         return posterPath + movie.backdrop_path;
       } else {
-        return 'assets/images/no-poster-path.png'
+        return 'assets/images/no-movie-poster.png'
       }
     }
   }
