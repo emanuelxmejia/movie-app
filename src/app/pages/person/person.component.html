@@ -1,1 +1,71 @@
-<p>person works!</p>
+<div class="page">
+    <div class="page__body">
+        <div class="person">
+            <div class="person__grid">
+                <div class="col">
+                    <img
+                        class="person__image" 
+                        src="{{ 'http://image.tmdb.org/t/p/original' + person.profile_path }}"
+                        alt="" />
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <h2 class="person__name">
+                            {{ person.name }}
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p class="text text--bold">
+                                Born
+                            </p>
+                            <small *ngIf="person.birthday"
+                            style="display: block;">
+                                {{ person.birthday | date:'longDate' }}
+                            </small>
+                            <small>
+                                {{ person.place_of_birth }}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row"
+                    *ngIf="person.deathday">
+                        <p class="text text--bold">
+                            Deathday:
+                        </p>
+                        <small>
+                            {{ person.deathday | date:'longDate'}}
+                        </small>
+                    </div>
+                    <div class="row row--mb-10"
+                    *ngIf="person.biography != ''">
+                        <p class="text text--bold">
+                            Biography
+                        </p>
+                        <small class="person__bio">
+                            {{ person.biography }}
+                        </small>
+                    </div>
+                    <div class="row"
+                    *ngIf="person.homepage">
+                        <a
+                            class="btn btn--pink btn--width"
+                            target="blank"
+                            [href]="person.homepage">
+                            Website
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="person__movies">
+                <h2>
+                    Known for
+                </h2>
+                <app-cards [movies]="movies"></app-cards>
+            </div>
+        </div>
+    </div>
+    <div class="page__footer">
+        <app-footer></app-footer>
+    </div>
+</div>

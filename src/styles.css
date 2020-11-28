@@ -95,6 +95,30 @@ body {
     font-weight: 600;
 }
 
+/* button styles
+---------------- */
+.btn {
+    display: block;
+    border: none;
+    background-color: #d7d7d7;
+    color: #fff;
+    padding: 14px 16px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 30px;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn--black {
+    background-color: #545460;
+}
+
+.btn--pink {
+    background-color: #cc4785;
+}
+
 /* custom dialog styles
 ----------------------- */
 .custom-dialog .mat-dialog-container {

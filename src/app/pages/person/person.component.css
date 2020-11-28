@@ -1,0 +1,46 @@
+.page__body {
+    padding: 10px;
+}
+
+.person__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+}
+
+.person__image {
+    width: 100%;
+    vertical-align: top;
+    border-radius: 5px;
+}
+
+.person__bio {
+    line-height: 22px;
+}
+
+@media only screen and (min-width: 768px) {
+    .person__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .person__name {
+        margin-top: 0;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .page__body {
+        padding: 0 20px;
+    }
+
+    .person__grid {
+        grid-template-columns: 1fr 2fr;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    .btn--width {
+        width: 50%;
+    }
+}

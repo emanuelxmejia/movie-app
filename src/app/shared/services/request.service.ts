@@ -8,6 +8,7 @@ import { Movie } from '../models/movie.model';
 import { MovieDetails } from '../models/movie-details.model';
 import { MovieTrailer } from '../models/movie-trailer.model';
 import { MovieCast } from '../models/movie-cast.model';
+import { Person } from '../models/person.model';
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +69,23 @@ export class RequestService {
           .pipe(
             map(res => res['results'])
           );
+  }
+
+  getPersonDetailsByPersonId(personId: number): Observable<Person> {
+    const url = `${ this.API_URL }/person/${ personId }?api_key=${ this.API_KEY }&language=en-US`;
+
+    return this.http.get<Person>(url);
+  }
+
+  getPersonMoviesByPersonId(personId: number): Observable<Movie[]> {
+    const url = `${ this.API_URL }/discover/movie?api_key=${ this.API_KEY }&language=en-US&sort_by=popularity.desc&page=1&with_people=${ personId }`;
+
+    return this.http.get<Movie[]>(url);
+  }
+
+  searchMovie(searchValue: string): Observable<Movie[]> {
+    const url = `${ this.API_URL }/search/movie?api_key=${ this.API_KEY }&language=en-US&query=${ searchValue }&page=1`;
+
+    return this.http.get<Movie[]>(url);
   }
 }
