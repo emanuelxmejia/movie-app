@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SidebarService } from '../../services/sidebar.service';
 
@@ -19,29 +20,52 @@ export class NavbarComponent implements OnInit {
     if (window.innerWidth >= 1025) { this.isOpenSearchBar = false; }
   }
 
-  searchValue: string;
-
   isNavbarSticky: boolean;
   isOpenSearchBar = false;
 
+  form: FormGroup;
+
   constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
     private sidebarService: SidebarService,
-    private router: Router
-  ) { }
+  ) {
+    this.createForm();
+  }
 
   ngOnInit(): void {
+  }
+
+  noWhiteSpacesValidator(formControl: FormControl) {
+    const isWhiteSpace = (formControl.value || '').trim().length === 0;
+    const isValid = !isWhiteSpace;
+
+    return isValid ? null : { 'whitespace': true };
+  }
+
+  createForm() {
+    this.form = this.formBuilder.group({
+      searchValue: ['', [
+        Validators.required,
+        Validators.minLength(2),
+        this.noWhiteSpacesValidator
+      ]]
+    });
   }
 
   sendIsOpen() {
     this.sidebarService.sendIsMenuOpen(true);
   }
 
-  goToSearch(searchValue: string) {
-    console.log(searchValue);
-    if (searchValue.length == 0) { return; }
+  goToSearch() {
+    if (this.form.invalid) { return; }
+
+    let searchValue: string;
+
+    searchValue = this.form.value.searchValue;
 
     this.router.navigate(['/search', searchValue]);
-    searchValue = '';
+    this.form.reset();
   }
 
 }

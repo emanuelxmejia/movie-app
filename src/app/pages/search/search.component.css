@@ -10,6 +10,16 @@
     padding: 0 10px;
 }
 
+.empty-state {
+    margin-top: 20px;
+    text-align: center;
+    color: #dfdfdf;
+}
+
+.empty-state__icon {
+    font-size: 68px;
+}
+
 .search-value {
     text-transform: capitalize;
     color: #cc4785;

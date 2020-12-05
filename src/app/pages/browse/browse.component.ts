@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from '../../shared/services/request.service';
 import { Movie } from '../../shared/models/movie.model';
 @Component({
@@ -14,6 +14,7 @@ export class BrowseComponent implements OnInit {
   categoryName: string;
 
   constructor(
+    private router: Router,
     private API: RequestService,
     private activateRoute: ActivatedRoute,
   ) {
@@ -33,6 +34,11 @@ export class BrowseComponent implements OnInit {
       .subscribe(res => {
         this.movies = res['results'];
         console.log('movies from browse: ', this.movies);
+      },
+      error => {
+        if (error.status == 404) {
+          this.router.navigateByUrl('not-found');
+        }
       });
   }
 

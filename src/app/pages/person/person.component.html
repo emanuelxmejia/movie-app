@@ -4,9 +4,9 @@
             <div class="person__grid">
                 <div class="col">
                     <img
-                        class="person__image" 
-                        src="{{ 'http://image.tmdb.org/t/p/original' + person.profile_path }}"
-                        alt="" />
+                        class="person__image"
+                        [src]="person | noPersonPicture"
+                        [alt]="person.name" />
                 </div>
                 <div class="col">
                     <div class="row">
@@ -14,7 +14,8 @@
                             {{ person.name }}
                         </h2>
                     </div>
-                    <div class="row">
+                    <div class="row"
+                    *ngIf="person.birthday">
                         <div class="col">
                             <p class="text text--bold">
                                 Born
@@ -37,13 +38,17 @@
                             {{ person.deathday | date:'longDate'}}
                         </small>
                     </div>
-                    <div class="row row--mb-10"
-                    *ngIf="person.biography != ''">
+                    <div class="row row--mb-10">
                         <p class="text text--bold">
                             Biography
                         </p>
-                        <small class="person__bio">
+                        <small class="person__bio"
+                        *ngIf="person.biography != ''">
                             {{ person.biography }}
+                        </small>
+                        <small class="person__bio"
+                        *ngIf="person.biography == ''">
+                            No bio available
                         </small>
                     </div>
                     <div class="row"

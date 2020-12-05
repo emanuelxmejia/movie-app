@@ -23,27 +23,27 @@ export class GenresComponent implements OnInit {
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.genreName = params['genreName'];
-      this.getMovieGenres();
+      this.getMovieGenresNames();
     });
   }
 
   ngOnInit() {
   }
 
-  getMovieGenres() {
+  getMovieGenresNames() {
     this.API.getMovieGenres()
         .subscribe(res => {
           res.forEach(movieGenre => {
             if (this.genreName == movieGenre.name) {
               this.genreId = movieGenre.id;
-              this.getMoviesByGenreId(this.genreId);
+              this.getMovies();
             }
           });
         });
   }
 
-  getMoviesByGenreId(genreId: number) {
-    this.API.getMoviesByGenreId(genreId)
+  getMovies() {
+    this.API.getMoviesByGenreId(this.genreId)
       .subscribe(res => {
         this.movies = res['results'];
         console.log('movies from genre: ', this.movies);

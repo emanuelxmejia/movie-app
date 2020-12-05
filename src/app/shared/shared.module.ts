@@ -15,31 +15,36 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MovieTrailerComponent } from './components/dialogs/movie-trailer/movie-trailer.component';
 
 // --- pipes
-import { NomovieposterPipe } from './pipes/nomovieposter.pipe';
 import { DomSanitizerPipe } from './pipes/dom-sanitizer.pipe';
+import { NoMoviePosterPipe } from './pipes/no-movie-poster.pipe';
+import { NoPersonPicturePipe } from './pipes/no-person-picture.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     SidebarComponent,
     CardsComponent,
-    NomovieposterPipe,
     FooterComponent,
     MovieTrailerComponent,
     DomSanitizerPipe,
+    NoMoviePosterPipe,
+    NoPersonPicturePipe,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     MaterialModule,
     RouterModule,
+    ReactiveFormsModule
   ],
   exports: [
     NavbarComponent,
     SidebarComponent,
     CardsComponent,
     FooterComponent,
-    MovieTrailerComponent
+    MovieTrailerComponent,
+    NoPersonPicturePipe
   ]
 })
 export class SharedModule { }

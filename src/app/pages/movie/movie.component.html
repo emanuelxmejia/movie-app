@@ -90,7 +90,7 @@
                         <img
                             class="slider__image"
                             loading="lazy"
-                            src="{{ profilePath + person.profile_path }}"
+                            [src]="person | noPersonPicture"
                             [alt]="person.name" />
                     </div>
                 </div>

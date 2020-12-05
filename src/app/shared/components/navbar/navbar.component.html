@@ -5,7 +5,9 @@
             (click)="sendIsOpen();">
             menu
         </span>
-        <div class="form">
+        <form
+            class="form"
+            [formGroup]="form">
             <div class="form__group">
                 <span class="material-icons form__icon">
                     search
@@ -13,10 +15,10 @@
                 <input
                     type="text"
                     class="form__control"
-                    #searchValue
                     placeholder="Search a movie"
-                    (keyup.enter)="goToSearch(searchValue.value); searchValue.value = '';"/>
+                    formControlName="searchValue"
+                    (keyup.enter)="goToSearch();"/>
             </div>
-        </div>
+        </form>
     </div>
 </div>

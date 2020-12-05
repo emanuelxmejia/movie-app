@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Movie } from '../models/movie.model';
 
 @Pipe({
-  name: 'nomovieposter'
+  name: 'noMoviePoster'
 })
-export class NomovieposterPipe implements PipeTransform {
+export class NoMoviePosterPipe implements PipeTransform {
 
   transform(movie: Movie): string {
     const posterPath = 'http://image.tmdb.org/t/p/w500';
