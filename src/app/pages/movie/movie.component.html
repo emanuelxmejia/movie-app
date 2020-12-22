@@ -99,9 +99,14 @@
     </div>
     <div class="movie__recommendations">
         <h2>Recommended</h2>
-        <app-cards [movies]="movies"></app-cards>
+        <p class="text"
+        *ngIf="movies.length == 0">
+            No movies recommended
+        </p>
+
+        <app-cards [movies]="movies" *ngIf="movies.length > 0"></app-cards>
     </div>
     <div class="movie__footer">
-        <app-footer></app-footer>
+        <app-footer [page]="page" [totalPages]="totalPages"></app-footer>
     </div>
 </div>

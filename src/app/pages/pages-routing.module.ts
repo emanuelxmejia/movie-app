@@ -14,23 +14,11 @@ const routes: Routes = [
     component: BrowseComponent
   },
   {
-    path: 'browse/:categoryName/:page',
-    component: BrowseComponent
-  },
-  {
     path: 'genres/:genreName',
     component: GenresComponent
   },
   {
-    path: 'genres/:genreName/:page',
-    component: GenresComponent
-  },
-  {
     path: 'movie/:movieId',
-    component: MovieComponent
-  },
-  {
-    path: 'movie/:categoryName/:movieId/:page',
     component: MovieComponent
   },
   {

@@ -1,8 +1,9 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
-import { MovieGenres } from '../../models/movie-genres.model';
+import { MovieGenre } from '../../models/movie-genre.model';
 import { Subscription } from 'rxjs';
 import { SidebarService } from '../../services/sidebar.service';
+import { GenreIdService } from '../../services/genre-id.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,7 +22,7 @@ export class SidebarComponent implements OnInit {
     if (window.innerWidth >= 1025) { this.isMenuOpen = false; }
   }
 
-  movieGenres: MovieGenres[] = [];
+  movieGenres: MovieGenre[] = [];
   
   subscription: Subscription;
   
@@ -32,6 +33,7 @@ export class SidebarComponent implements OnInit {
   constructor(
     private API: RequestService,
     private elementRef: ElementRef,
+    private genreService: GenreIdService,
     private sidebarSerice: SidebarService,
   ) {
     this.subscription = this.sidebarSerice.getIsMenuOpen().subscribe(data => {
@@ -41,6 +43,10 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.getMovieGenres();
+  }
+
+  sendGenreId(movieGenre: MovieGenre) {
+    this.genreService.sendGenreId(movieGenre.id);
   }
 
   getMovieGenres() {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Movie } from 'src/app/shared/models/movie.model';
 import { RequestService } from '../../shared/services/request.service';
+import { UrlParamsService } from '../../shared/services/url-params.service';
 
 @Component({
   selector: 'app-search',
@@ -14,28 +15,33 @@ export class SearchComponent implements OnInit {
 
   searchValue: string;
 
+  page: number;
+  totalPages: number;
+
   constructor(
     private API: RequestService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private urlParamsService: UrlParamsService,
   ) {
-    this.activatedRoute.params.subscribe(params => {
-      this.searchValue = params['searchValue'];
+    this.urlParamsService.getUrlParams(this.activatedRoute.params, this.activatedRoute.queryParams)
+      .subscribe(params => {
+        this.searchValue = params['param'].searchValue;
+        this.page = params['queryParam'].page;
 
-      this.searchMovie();
-    });
-
+        this.searchMovie();
+      });
   }
 
   ngOnInit(): void {
   }
 
   searchMovie() {
-    this.API.searchMovie(this.searchValue)
+    this.API.searchMovie(this.searchValue, this.page)
         .subscribe(res => {
-          console.log(res);
-          this.movies = res['results'];
+          this.page = res.page;
+          this.movies = res.results;
+          this.totalPages = res.total_pages;
         });
-
   }
 
 }

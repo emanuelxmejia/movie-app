@@ -11,11 +11,9 @@ export class CardsComponent implements OnInit {
 
   @Input() movies: Movie[];
 
-  constructor(
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   goToMovieDetails(movie: Movie) {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from '../../shared/services/request.service';
 import { Movie } from '../../shared/models/movie.model';
+import { UrlParamsService } from '../../shared/services/url-params.service';
+
 @Component({
   selector: 'app-browse',
   templateUrl: './browse.component.html',
@@ -13,36 +15,43 @@ export class BrowseComponent implements OnInit {
 
   categoryName: string;
 
+  page: number;
+  totalPages: number;
+ 
   constructor(
     private router: Router,
     private API: RequestService,
-    private activateRoute: ActivatedRoute,
+    private urlParamsService: UrlParamsService,
+    private activatedRoute: ActivatedRoute,
   ) {
-    this.activateRoute.params.subscribe(params => {
-      this.categoryName = params['categoryName'];
+    this.urlParamsService.getUrlParams(this.activatedRoute.params, this.activatedRoute.queryParams)
+      .subscribe(params => {
+        this.categoryName = params['param'].categoryName;
+        this.page = params['queryParam'].page;
 
-      this.getMoviesByCategoryName(this.categoryName);
-      this.getCategoryName(this.categoryName);
-    })
+        this.getMovies();
+        this.getCategoryName(this.categoryName);
+      });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  getMoviesByCategoryName(categoryName: string) {
-    this.API.getMoviesByCategoryName(categoryName)
+  getMovies() {
+    this.API.getMoviesByCategoryName(this.categoryName, this.page)
       .subscribe(res => {
-        this.movies = res['results'];
-        console.log('movies from browse: ', this.movies);
+        this.page = res.page;
+        this.movies = res.results;
+        this.totalPages = res.total_pages;
       },
       error => {
-        if (error.status == 404) {
+        if (error) {
           this.router.navigateByUrl('not-found');
         }
       });
   }
 
-  getCategoryName(categoryName) {
+  getCategoryName(categoryName: string) {
     switch(categoryName) {
       case 'popular':
         this.categoryName = 'Popular';
@@ -53,7 +62,7 @@ export class BrowseComponent implements OnInit {
       case 'upcoming':
         this.categoryName = 'Upcoming';
         break;
-      default: 'Popular';
+      default: 'popular';
     }
   }
 }

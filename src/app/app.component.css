@@ -1,14 +1,5 @@
 .main-container {
-    /* border: 1px solid red; */
     position: relative;
-}
-
-.container {
-    /* border: 1px solid green; */
-}
-
-@media only screen and (min-width: 768px) {
-    
 }
 
 @media only screen and (min-width: 1025px) {

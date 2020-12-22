@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RequestService } from '../../shared/services/request.service';
 import { Person } from '../../shared/models/person.model';
 import { Movie } from 'src/app/shared/models/movie.model';
+import { UrlParamsService } from '../../shared/services/url-params.service';
 
 @Component({
   selector: 'app-person',
@@ -15,34 +16,41 @@ export class PersonComponent implements OnInit {
 
   movies: Movie[] = [];
 
+  page: number;
   personId: number;
+  totalPages: number;
 
   constructor(
     private API: RequestService,
+    private paramsService: UrlParamsService,
     private activatedRoute: ActivatedRoute
   ) {
-    this.activatedRoute.params.subscribe(params => {
-      this.personId = params['personId'];
-    });
+    this.paramsService.getUrlParams(this.activatedRoute.params, this.activatedRoute.queryParams)
+      .subscribe(params => {
+        this.personId = params['param'].personId;
+        this.page = params['queryParam'].page;
+
+        this.getPersonDetails();
+        this.getPersonMovies();
+      });
   }
   
   ngOnInit(): void {
-    this.getPersonDetails();
-    this.getPersonMovies();
   }
 
   getPersonDetails() {
     this.API.getPersonDetailsByPersonId(this.personId)
         .subscribe(res => {
           this.person = res;
-          console.log(this.person);
         });
   }
 
   getPersonMovies() {
-    this.API.getPersonMoviesByPersonId(this.personId)
+    this.API.getPersonMoviesByPersonId(this.personId, this.page)
         .subscribe(res => {
-          this.movies = res['results'];
+          this.page = res.page;
+          this.movies = res.results;
+          this.totalPages = res.total_pages;
         });
   }
 

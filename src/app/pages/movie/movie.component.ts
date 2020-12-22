@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from '../../shared/services/request.service';
 import { MovieDetails } from '../../shared/models/movie-details.model';
 import { Movie } from 'src/app/shared/models/movie.model';
-import { MovieGenres } from '../../shared/models/movie-genres.model';
+import { MovieGenre } from '../../shared/models/movie-genre.model';
 import { MatDialog } from '@angular/material/dialog';
 import { MovieTrailerComponent } from '../../shared/components/dialogs/movie-trailer/movie-trailer.component';
 import { MovieCast } from 'src/app/shared/models/movie-cast.model';
+import { UrlParamsService } from '../../shared/services/url-params.service';
 
 @Component({
   selector: 'app-movie',
@@ -18,27 +19,32 @@ export class MovieComponent implements OnInit {
   movieDetails = <MovieDetails>{};
 
   movies: Movie[] = [];
-  movieGenres: MovieGenres[] = [];
   movieCast: MovieCast[] = [];
+  movieGenres: MovieGenre[] = [];
 
   backdropPathUrl = 'http://image.tmdb.org/t/p/original';
   profilePath = 'https://image.tmdb.org/t/p/w300/';
 
+  page: number;
   movieId: number;
+  totalPages: number;
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
     private API: RequestService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private urlParamsService: UrlParamsService,
   ) {
-    this.activatedRoute.params.subscribe(params => {
-      this.movieId = params['movieId'];
+    this.urlParamsService.getUrlParams(this.activatedRoute.params, this.activatedRoute.queryParams)
+        .subscribe(params => {
+          this.movieId = params['param'].movieId;
+          this.page = params['queryParam'].page;
 
-      this.getMovieDetails(this.movieId);
-      this.getRecommendationsByMovieId(this.movieId);
-      this.getMovieCastByMovieId(this.movieId);
-    });
+          this.getMovieCast();
+          this.getMovieDetails();
+          this.getRecommendationsMovies();
+        });
   }
 
   ngOnInit(): void {
@@ -55,32 +61,31 @@ export class MovieComponent implements OnInit {
     `;
   }
 
-  getMovieDetails(movieId: number) {
-    this.API.getMovieDetailsByMovieId(movieId)
+  getMovieDetails() {
+    this.API.getMovieDetailsByMovieId(this.movieId)
         .subscribe(res => {
-          console.log('movie details: ', res);
           this.movieDetails = res;
-          this.movieGenres = res['genres'];
+          this.movieGenres = res.genres;
         });
   }
 
-  getMovieCastByMovieId(movieId: number) {
-    this.API.getMovieCastByMovieId(movieId)
+  getMovieCast() {
+    this.API.getMovieCastByMovieId(this.movieId)
         .subscribe(res => {
-          console.log('movie creditos: ', res);
           this.movieCast = res;
         });
   }
 
-  getRecommendationsByMovieId(movieId: number) {
-    this.API.getRecommendationsByMovieId(movieId)
+  getRecommendationsMovies() {
+    this.API.getRecommendationsByMovieId(this.movieId, this.page)
         .subscribe(res => {
-          console.log('movies recomendadas: ', res);
-          this.movies = res['results'];
+          this.page = res.page;
+          this.movies = res.results;
+          this.totalPages = res.total_pages;
         });
   }
 
-  goToMovieGenre(movieGenre: MovieGenres) {
+  goToMovieGenre(movieGenre: MovieGenre) {
     this.router.navigate(['genres/', movieGenre.name]);
   }
 
@@ -96,10 +101,6 @@ export class MovieComponent implements OnInit {
       data: {
         movieId: this.movieDetails.id
       }
-    });
-
-    dialogRef.afterClosed().subscribe(res => {
-      console.log('dialog close');
     });
   }
 

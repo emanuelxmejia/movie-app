@@ -1,52 +1,60 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { RequestService } from '../../shared/services/request.service';
-import { MovieGenres } from '../../shared/models/movie-genres.model';
 import { Movie } from '../../shared/models/movie.model';
+import { UrlParamsService } from '../../shared/services/url-params.service';
+import { GenreIdService } from '../../shared/services/genre-id.service';
 
 @Component({
   selector: 'app-genres',
   templateUrl: './genres.component.html',
   styleUrls: ['./genres.component.css']
 })
-export class GenresComponent implements OnInit {
+export class GenresComponent implements OnInit, OnDestroy {
 
   movies: Movie[] = [];
 
   genreName: string;
 
+  page: number;
   genreId: number;
+  totalPages: number;
+
+  subscription: Subscription;
 
   constructor(
     private API: RequestService,
-    private activatedRoute: ActivatedRoute
+    private genreService: GenreIdService,
+    private activatedRoute: ActivatedRoute,
+    private urlParamsService: UrlParamsService,
   ) {
-    this.activatedRoute.params.subscribe(params => {
-      this.genreName = params['genreName'];
-      this.getMovieGenresNames();
+    this.subscription = this.genreService.getGenreId().subscribe(data => {
+      this.genreId = data;
     });
+
+    this.urlParamsService.getUrlParams(this.activatedRoute.params, this.activatedRoute.queryParams)
+      .subscribe(params => {
+        this.genreName = params['param'].genreName;
+        this.page = params['queryParam'].page;
+
+        this.getMovies();
+      });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  getMovieGenresNames() {
-    this.API.getMovieGenres()
-        .subscribe(res => {
-          res.forEach(movieGenre => {
-            if (this.genreName == movieGenre.name) {
-              this.genreId = movieGenre.id;
-              this.getMovies();
-            }
-          });
-        });
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   getMovies() {
-    this.API.getMoviesByGenreId(this.genreId)
+    this.API.getMoviesByGenreId(this.genreId, this.page)
       .subscribe(res => {
-        this.movies = res['results'];
-        console.log('movies from genre: ', this.movies);
+        this.page = res.page;
+        this.movies = res.results;
+        this.totalPages = res.total_pages
       });
   }
 

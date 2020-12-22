@@ -20,13 +20,13 @@ export class MovieTrailerComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {
     this.movieId = data['movieId'];
-    this.getMovieTrailerbyMovieId(this.movieId);
+    this.getMovieTrailer(this.movieId);
   }
 
   ngOnInit(): void {
   }
 
-  getMovieTrailerbyMovieId(movieId: number) {
+  getMovieTrailer(movieId: number) {
     this.API.getMovieTrailerByMovieId(movieId)
         .subscribe(res => {
           return this.videoUrl = this.youtubeUrl + res[0].key;

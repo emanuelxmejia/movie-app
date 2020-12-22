@@ -44,7 +44,7 @@
             [routerLink]="['/genres', movieGenre.name]"
             *ngFor="let movieGenre of movieGenres"
             routerLinkActive="active"
-            (click)="isMenuOpen = !isMenuOpen">
+            (click)="isMenuOpen = !isMenuOpen; sendGenreId(movieGenre);">
                 <a class="menu__link">
                     {{ movieGenre.name }}
                 </a>
