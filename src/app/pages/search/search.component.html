@@ -2,7 +2,7 @@
     <div class="page__header"
     *ngIf="movies.length > 0">
         <h2>
-            Results for:
+            Results found for:
             <span class="search-value">
                 {{ searchValue }}
             </span>
@@ -14,8 +14,8 @@
                 search_off
             </span>
             <h2>
-                Sorry, no results for
-                <span class="search-value">
+                Sorry, no results found for
+                <span class="search-value" style="display: block;">
                     {{ searchValue }}
                 </span>
             </h2>

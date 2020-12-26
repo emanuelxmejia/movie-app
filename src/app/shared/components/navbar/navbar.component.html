@@ -17,7 +17,7 @@
                     class="form__control"
                     placeholder="Search a movie"
                     formControlName="searchValue"
-                    (keyup.enter)="goToSearch();"/>
+                    (keyup)="goToSearch($event);"/>
             </div>
         </form>
     </div>

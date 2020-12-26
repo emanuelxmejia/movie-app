@@ -14,7 +14,7 @@
             </a>
         </div>
         <div class="col"
-        *ngIf="page != totalPages">
+        *ngIf="page != totalPages && totalPages > 0">
             <a class="btn btn--pink btn--pxy"
             (click)="goToNextPage();">
                 <span style="margin-right: 5px">

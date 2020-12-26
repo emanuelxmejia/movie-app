@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { RequestService } from '../../shared/services/request.service';
-import { Person } from '../../shared/models/person.model';
-import { Movie } from 'src/app/shared/models/movie.model';
-import { UrlParamsService } from '../../shared/services/url-params.service';
+import { ActivatedRoute }    from '@angular/router';
+import { Location }          from '@angular/common';
+import { Movie }             from '../../shared/models/movie.model';
+import { Person }            from '../../shared/models/person.model';
+import { RequestService }    from '../../shared/services/request.service';
+import { UrlParamsService }  from '../../shared/services/url-params.service';
 
 @Component({
   selector: 'app-person',
@@ -16,19 +17,20 @@ export class PersonComponent implements OnInit {
 
   movies: Movie[] = [];
 
-  page: number;
-  personId: number;
+  page:       number;
+  personId:   number;
   totalPages: number;
 
   constructor(
-    private API: RequestService,
-    private paramsService: UrlParamsService,
+    private API:            RequestService,
+    private location:       Location,
+    private paramsService:  UrlParamsService,
     private activatedRoute: ActivatedRoute
   ) {
     this.paramsService.getUrlParams(this.activatedRoute.params, this.activatedRoute.queryParams)
       .subscribe(params => {
         this.personId = params['param'].personId;
-        this.page = params['queryParam'].page;
+        this.page     = params['queryParam'].page;
 
         this.getPersonDetails();
         this.getPersonMovies();
@@ -48,10 +50,14 @@ export class PersonComponent implements OnInit {
   getPersonMovies() {
     this.API.getPersonMoviesByPersonId(this.personId, this.page)
         .subscribe(res => {
-          this.page = res.page;
-          this.movies = res.results;
+          this.page       = res.page;
+          this.movies     = res.results;
           this.totalPages = res.total_pages;
         });
+  }
+
+  back() {
+    this.location.back();
   }
 
 }

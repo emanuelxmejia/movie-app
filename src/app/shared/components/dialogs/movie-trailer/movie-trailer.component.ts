@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit }     from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { RequestService } from '../../../services/request.service';
+import { RequestService }                from '../../../services/request.service';
 
 @Component({
   selector: 'app-movie-trailer',
@@ -15,7 +15,7 @@ export class MovieTrailerComponent implements OnInit {
   movieId: number;
 
   constructor(
-    private API: RequestService,
+    private API:      RequestService,
     public dialogRef: MatDialogRef<MovieTrailerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {

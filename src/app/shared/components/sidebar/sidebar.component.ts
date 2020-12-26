@@ -1,16 +1,16 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
-import { RequestService } from '../../services/request.service';
-import { MovieGenre } from '../../models/movie-genre.model';
-import { Subscription } from 'rxjs';
-import { SidebarService } from '../../services/sidebar.service';
-import { GenreIdService } from '../../services/genre-id.service';
+import { Component, ElementRef, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Subscription }                                           from 'rxjs';
+import { RequestService }                                         from '../../services/request.service';
+import { MovieGenre }                                             from '../../models/movie-genre.model';
+import { SidebarService }                                         from '../../services/sidebar.service';
+import { GenreIdService }                                         from '../../services/genre-id.service';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
 
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
@@ -26,14 +26,14 @@ export class SidebarComponent implements OnInit {
   
   subscription: Subscription;
   
-  isFixed: boolean;
-  isMenuOpen: boolean;
+  isFixed:      boolean;
+  isMenuOpen:   boolean;
   isMenuScroll: boolean;
 
   constructor(
-    private API: RequestService,
-    private elementRef: ElementRef,
-    private genreService: GenreIdService,
+    private API:           RequestService,
+    private elementRef:    ElementRef,
+    private genreService:  GenreIdService,
     private sidebarSerice: SidebarService,
   ) {
     this.subscription = this.sidebarSerice.getIsMenuOpen().subscribe(data => {
@@ -43,6 +43,10 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.getMovieGenres();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   sendGenreId(movieGenre: MovieGenre) {

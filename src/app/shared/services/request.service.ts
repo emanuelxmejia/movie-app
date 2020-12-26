@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map }        from 'rxjs/operators';
 
-import { MovieGenre } from '../models/movie-genre.model';
+import { MovieGenre }    from '../models/movie-genre.model';
 import { MovieResponse } from '../models/movie.model';
-import { MovieDetails } from '../models/movie-details.model';
-import { MovieTrailer } from '../models/movie-trailer.model';
-import { MovieCast } from '../models/movie-cast.model';
-import { Person } from '../models/person.model';
+import { MovieDetails }  from '../models/movie-details.model';
+import { MovieTrailer }  from '../models/movie-trailer.model';
+import { MovieCast }     from '../models/movie-cast.model';
+import { Person }        from '../models/person.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { SidebarService } from '../../services/sidebar.service';
+import { Component, HostListener, OnInit }                       from '@angular/core';
+import { Router }                                                from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators }       from '@angular/forms';
+import { SidebarService }                                        from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -26,8 +26,8 @@ export class NavbarComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private router: Router,
-    private formBuilder: FormBuilder,
+    private router:         Router,
+    private formBuilder:    FormBuilder,
     private sidebarService: SidebarService,
   ) {
     this.createForm();
@@ -57,15 +57,18 @@ export class NavbarComponent implements OnInit {
     this.sidebarService.sendIsMenuOpen(true);
   }
 
-  goToSearch() {
-    if (this.form.invalid) { return; }
+  goToSearch(event: any) {
+    if (this.form.invalid) return;
 
-    let searchValue: string;
-
-    searchValue = this.form.value.searchValue;
-
-    this.router.navigate(['/search', searchValue]);
-    this.form.reset();
+    if (event.key === 'Enter') {
+  
+      let searchValue: string;
+  
+      searchValue = this.form.value.searchValue;
+  
+      this.router.navigate(['/search', searchValue]);
+      this.form.reset();
+    }
   }
 
 }

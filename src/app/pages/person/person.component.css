@@ -18,6 +18,13 @@
     line-height: 22px;
 }
 
+.row--custom {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+}
+
+
 @media only screen and (min-width: 768px) {
     .person__grid {
         grid-template-columns: repeat(2, 1fr);
@@ -38,7 +45,8 @@
         grid-template-columns: 400px 1fr;
     }
 
-    .btn--width {
-        width: 280px;
+    .row--custom {
+        grid-template-columns: 250px 250px;
+        gap: 10px;
     }
 }

@@ -2,7 +2,8 @@
     <div class="movie__background"
     [ngStyle]="{ 'background-image': getMovieBackdrop(movieDetails) }">
         <div class="row row--flex row--flex-align-center row--flex-space-between">
-            <span class="material-icons pointer">
+            <span class="material-icons pointer"
+            (click)="goBack();">
                 west
             </span>
             <div class="movie__raiting movie__raiting--mobile">

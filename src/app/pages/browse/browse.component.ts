@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RequestService } from '../../shared/services/request.service';
-import { Movie } from '../../shared/models/movie.model';
-import { UrlParamsService } from '../../shared/services/url-params.service';
+import { RequestService }         from '../../shared/services/request.service';
+import { Movie }                  from '../../shared/models/movie.model';
+import { UrlParamsService }       from '../../shared/services/url-params.service';
 
 @Component({
   selector: 'app-browse',
@@ -15,19 +15,19 @@ export class BrowseComponent implements OnInit {
 
   categoryName: string;
 
-  page: number;
+  page:       number;
   totalPages: number;
  
   constructor(
-    private router: Router,
-    private API: RequestService,
+    private router:           Router,
+    private API:              RequestService,
+    private activatedRoute:   ActivatedRoute,
     private urlParamsService: UrlParamsService,
-    private activatedRoute: ActivatedRoute,
   ) {
     this.urlParamsService.getUrlParams(this.activatedRoute.params, this.activatedRoute.queryParams)
       .subscribe(params => {
         this.categoryName = params['param'].categoryName;
-        this.page = params['queryParam'].page;
+        this.page         = params['queryParam'].page;
 
         this.getMovies();
         this.getCategoryName(this.categoryName);
@@ -40,8 +40,8 @@ export class BrowseComponent implements OnInit {
   getMovies() {
     this.API.getMoviesByCategoryName(this.categoryName, this.page)
       .subscribe(res => {
-        this.page = res.page;
-        this.movies = res.results;
+        this.page       = res.page;
+        this.movies     = res.results;
         this.totalPages = res.total_pages;
       },
       error => {

@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { RequestService } from '../../shared/services/request.service';
-import { Movie } from '../../shared/models/movie.model';
-import { UrlParamsService } from '../../shared/services/url-params.service';
-import { GenreIdService } from '../../shared/services/genre-id.service';
+import { ActivatedRoute }               from '@angular/router';
+import { Subscription }                 from 'rxjs';
+import { Movie }                        from '../../shared/models/movie.model';
+import { RequestService }               from '../../shared/services/request.service';
+import { GenreIdService }               from '../../shared/services/genre-id.service';
+import { UrlParamsService }             from '../../shared/services/url-params.service';
 
 @Component({
   selector: 'app-genres',
@@ -17,16 +17,16 @@ export class GenresComponent implements OnInit, OnDestroy {
 
   genreName: string;
 
-  page: number;
-  genreId: number;
+  page:       number;
+  genreId:    number;
   totalPages: number;
 
   subscription: Subscription;
 
   constructor(
-    private API: RequestService,
-    private genreService: GenreIdService,
-    private activatedRoute: ActivatedRoute,
+    private API:              RequestService,
+    private genreService:     GenreIdService,
+    private activatedRoute:   ActivatedRoute,
     private urlParamsService: UrlParamsService,
   ) {
     this.subscription = this.genreService.getGenreId().subscribe(data => {
@@ -36,7 +36,7 @@ export class GenresComponent implements OnInit, OnDestroy {
     this.urlParamsService.getUrlParams(this.activatedRoute.params, this.activatedRoute.queryParams)
       .subscribe(params => {
         this.genreName = params['param'].genreName;
-        this.page = params['queryParam'].page;
+        this.page      = params['queryParam'].page;
 
         this.getMovies();
       });
@@ -52,8 +52,8 @@ export class GenresComponent implements OnInit, OnDestroy {
   getMovies() {
     this.API.getMoviesByGenreId(this.genreId, this.page)
       .subscribe(res => {
-        this.page = res.page;
-        this.movies = res.results;
+        this.page       = res.page;
+        this.movies     = res.results;
         this.totalPages = res.total_pages
       });
   }

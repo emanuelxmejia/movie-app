@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable }                from '@angular/core';
+import { Params }                    from '@angular/router';
 import { Observable, combineLatest } from 'rxjs';
-import { Params } from '@angular/router';
-import { map, debounceTime } from 'rxjs/operators';
+import { map, debounceTime }         from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

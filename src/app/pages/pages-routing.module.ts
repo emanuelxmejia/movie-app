@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule }             from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { BrowseComponent } from './browse/browse.component';
-import { GenresComponent } from './genres/genres.component';
-import { MovieComponent } from './movie/movie.component';
-import { PersonComponent } from './person/person.component';
-import { SearchComponent } from './search/search.component';
+import { MovieComponent }    from './movie/movie.component';
+import { BrowseComponent }   from './browse/browse.component';
+import { GenresComponent }   from './genres/genres.component';
+import { PersonComponent }   from './person/person.component';
+import { SearchComponent }   from './search/search.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [

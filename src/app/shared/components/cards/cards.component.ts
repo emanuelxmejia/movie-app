@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Movie } from '../../models/movie.model';
+import { Router }                   from '@angular/router';
+import { Movie }                    from '../../models/movie.model';
 
 @Component({
   selector: 'app-cards',
