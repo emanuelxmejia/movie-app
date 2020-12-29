@@ -1,15 +1,3 @@
-.page__header {
-    padding: 20px 10px;
-}
-
-.page__title {
-    margin: 0;
-}
-
-.page__body {
-    padding: 0 10px;
-}
-
 .empty-state {
     margin-top: 20px;
     text-align: center;
@@ -23,14 +11,4 @@
 .search-value {
     text-transform: capitalize;
     color: #cc4785;
-}
-
-@media only screen and (min-width: 1025px) {
-    .page__header {
-        padding: 20px;
-    }
-
-    .page__body {
-        padding: 0 20px;
-    }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit }      from '@angular/core';
 import { Location }               from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog }              from '@angular/material/dialog';
+import { forkJoin }               from 'rxjs';
 import { Movie }                  from '../../shared/models/movie.model';
 import { MovieCast }              from '../../shared/models/movie-cast.model';
 import { RequestService }         from '../../shared/services/request.service';
@@ -30,6 +31,8 @@ export class MovieComponent implements OnInit {
   movieId:    number;
   totalPages: number;
 
+  loading = false;
+
   constructor(
     private router:            Router,
     private dialog:            MatDialog,
@@ -42,9 +45,8 @@ export class MovieComponent implements OnInit {
       .subscribe(params => {
         this.movieId = params['param'].movieId;
         this.page    = params['queryParam'].page;
-        this.getMovieCast();
-        this.getMovieDetails();
-        this.getRecommendationsMovies();
+
+        this.getMovieInformation();
       });
   }
 
@@ -62,28 +64,25 @@ export class MovieComponent implements OnInit {
     `;
   }
 
-  getMovieDetails() {
-    this.API.getMovieDetailsByMovieId(this.movieId)
-        .subscribe(res => {
-          this.movieDetails = res;
-          this.movieGenres  = res.genres;
-        });
-  }
+  getMovieInformation() {
+    this.loading = true;
 
-  getMovieCast() {
-    this.API.getMovieCastByMovieId(this.movieId)
-        .subscribe(res => {
-          this.movieCast = res;
-        });
-  }
+    const movieDetails         = this.API.getMovieDetailsByMovieId(this.movieId);
+    const movieCast            = this.API.getMovieCastByMovieId(this.movieId);
+    const movieRecommendations = this.API.getRecommendationsByMovieId(this.movieId, this.page);
 
-  getRecommendationsMovies() {
-    this.API.getRecommendationsByMovieId(this.movieId, this.page)
-        .subscribe(res => {
-          this.page       = res.page;
-          this.movies     = res.results;
-          this.totalPages = res.total_pages;
-        });
+    forkJoin([movieDetails, movieCast, movieRecommendations]).subscribe(res => {
+      this.loading = false;
+
+      this.movieDetails = res[0];
+      this.movieGenres  = res[0].genres;
+
+      this.movieCast = res[1];
+
+      this.page       = res[2].page;
+      this.movies     = res[2].results;
+      this.totalPages = res[2].total_pages;
+    });
   }
 
   goToMovieGenre(movieGenre: MovieGenre) {

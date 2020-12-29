@@ -3,19 +3,22 @@
         <div class="person">
             <div class="person__grid">
                 <div class="col">
+                    <app-loader widthP="100" height="480" *ngIf="loading"></app-loader>
                     <img
                         class="person__image"
                         [src]="person | noPersonPicture"
-                        [alt]="person.name" />
+                        [alt]="person.name"
+                        *ngIf="!loading"/>
                 </div>
                 <div class="col">
                     <div class="row">
-                        <h2 class="person__name">
+                        <app-loader *ngIf="loading"></app-loader>
+                        <h2 class="person__name" *ngIf="!loading">
                             {{ person.name }}
                         </h2>
                     </div>
                     <div class="row"
-                    *ngIf="person.birthday">
+                    *ngIf="!loading && person.birthday">
                         <div class="col">
                             <p class="text text--bold">
                                 Born
@@ -24,13 +27,13 @@
                             style="display: block;">
                                 {{ person.birthday | date:'longDate' }}
                             </small>
-                            <small>
+                            <small *ngIf="person.place_of_birth">
                                 {{ person.place_of_birth }}
                             </small>
                         </div>
                     </div>
                     <div class="row"
-                    *ngIf="person.deathday">
+                    *ngIf="!loading && person.deathday">
                         <p class="text text--bold">
                             Deathday:
                         </p>
@@ -39,19 +42,22 @@
                         </small>
                     </div>
                     <div class="row row--mb-10">
-                        <p class="text text--bold">
+                        <app-loader width="100" *ngIf="loading"></app-loader>
+                        <p class="text text--bold" *ngIf="!loading">
                             Biography
                         </p>
+                        <app-loader height="200" widthP="100" *ngIf="loading"></app-loader>
                         <small class="person__bio"
-                        *ngIf="person.biography != ''">
+                        *ngIf="!loading && person.biography != ''">
                             {{ person.biography }}
                         </small>
                         <small class="person__bio"
-                        *ngIf="person.biography == ''">
+                        *ngIf="!loading && person.biography == ''">
                             No bio available
                         </small>
                     </div>
-                    <div class="row row--custom">
+                    <div class="row row--custom"
+                    *ngIf="!loading">
                         <a class="btn btn--black"
                         (click)="back();">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -72,14 +78,18 @@
                 </div>
             </div>
             <div class="person__movies">
-                <h2>
+                <app-loader *ngIf="loading"></app-loader>
+                <h2 *ngIf="!loading && movies.length > 0">
                     Known for
                 </h2>
-                <app-cards [movies]="movies"></app-cards>
+                <app-cards [movies]="movies" [loading]="loading"></app-cards>
+                <h2 *ngIf="!loading && movies.length == 0">
+                    No movies to show
+                </h2>
             </div>
         </div>
     </div>
     <div class="page__footer">
-        <app-footer [page]="page" [totalPages]="totalPages"></app-footer>
+        <app-footer [page]="page" [totalPages]="totalPages" [loading]="loading"></app-footer>
     </div>
 </div>

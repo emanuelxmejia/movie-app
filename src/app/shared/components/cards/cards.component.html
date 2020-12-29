@@ -1,4 +1,22 @@
-<div class="cards">
+<div class="cards" *ngIf="loading">
+    <div class="card"
+    *ngFor="let cardLoading of cardsLoading">
+        <div class="card__header">
+            <app-loader widthP="100" height="280"></app-loader>
+        </div>
+        <div class="card__body">
+            <app-loader width="120"></app-loader>
+        </div>
+        <div class="card__footer">
+            <div class="row row--flex row--flex-space-between">
+                <app-loader width="100"></app-loader>
+                <app-loader width="50"></app-loader>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="cards" *ngIf="!loading">
     <div class="card"
     *ngFor="let movie of movies"
     (click)="goToMovieDetails(movie);">

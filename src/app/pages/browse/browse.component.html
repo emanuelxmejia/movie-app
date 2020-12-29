@@ -1,13 +1,15 @@
 <div class="page">
     <div class="page__header">
-        <h2 class="page__title">
+        <app-loader *ngIf="loading"></app-loader>
+        <h2 class="page__title"
+        *ngIf="!loading">
             {{ categoryName }}
         </h2>
     </div>
     <div class="page__body">
-        <app-cards [movies]="movies"></app-cards>
+        <app-cards [movies]="movies" [loading]="loading"></app-cards>
     </div>
     <div class="page__footer">
-        <app-footer [page]="page" [totalPages]="totalPages"></app-footer>
+        <app-footer [page]="page" [totalPages]="totalPages" [loading]="loading"></app-footer>
     </div>
 </div>

@@ -18,6 +18,8 @@ export class SearchComponent implements OnInit {
   page:       number;
   totalPages: number;
 
+  loading = false;
+
   constructor(
     private API:              RequestService,
     private activatedRoute:   ActivatedRoute,
@@ -36,8 +38,12 @@ export class SearchComponent implements OnInit {
   }
 
   searchMovie() {
+    this.loading = true;
+
     this.API.searchMovie(this.searchValue, this.page)
         .subscribe(res => {
+          this.loading = false;
+
           this.page       = res.page;
           this.movies     = res.results;
           this.totalPages = res.total_pages;

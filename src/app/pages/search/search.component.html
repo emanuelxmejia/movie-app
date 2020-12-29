@@ -1,7 +1,7 @@
 <div class="page">
-    <div class="page__header"
-    *ngIf="movies.length > 0">
-        <h2>
+    <div class="page__header">
+        <app-loader *ngIf="loading"></app-loader>
+        <h2 *ngIf="!loading && movies.length > 0">
             Results found for:
             <span class="search-value">
                 {{ searchValue }}
@@ -9,7 +9,7 @@
         </h2>
     </div>
     <div class="page__body">
-        <div class="empty-state" *ngIf="movies.length == 0">
+        <div class="empty-state" *ngIf="!loading && movies.length == 0">
             <span class="material-icons empty-state__icon">
                 search_off
             </span>
@@ -20,9 +20,9 @@
                 </span>
             </h2>
         </div>
-        <app-cards [movies]="movies" *ngIf="movies.length > 0"></app-cards>
+        <app-cards [movies]="movies" [loading]="loading"></app-cards>
     </div>
     <div class="page__footer">
-        <app-footer [page]="page" [totalPages]="totalPages"></app-footer>
+        <app-footer [page]="page" [totalPages]="totalPages" [loading]="loading"></app-footer>
     </div>
 </div>

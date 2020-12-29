@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute }    from '@angular/router';
 import { Location }          from '@angular/common';
+import { forkJoin }          from 'rxjs';
 import { Movie }             from '../../shared/models/movie.model';
 import { Person }            from '../../shared/models/person.model';
 import { RequestService }    from '../../shared/services/request.service';
@@ -21,6 +22,8 @@ export class PersonComponent implements OnInit {
   personId:   number;
   totalPages: number;
 
+  loading = false;
+
   constructor(
     private API:            RequestService,
     private location:       Location,
@@ -32,28 +35,27 @@ export class PersonComponent implements OnInit {
         this.personId = params['param'].personId;
         this.page     = params['queryParam'].page;
 
-        this.getPersonDetails();
-        this.getPersonMovies();
+        this.getPersonInformation();
       });
   }
   
   ngOnInit(): void {
   }
 
-  getPersonDetails() {
-    this.API.getPersonDetailsByPersonId(this.personId)
-        .subscribe(res => {
-          this.person = res;
-        });
-  }
+  getPersonInformation() {
+    this.loading = true;
 
-  getPersonMovies() {
-    this.API.getPersonMoviesByPersonId(this.personId, this.page)
-        .subscribe(res => {
-          this.page       = res.page;
-          this.movies     = res.results;
-          this.totalPages = res.total_pages;
-        });
+    const personDetails = this.API.getPersonDetailsByPersonId(this.personId);
+    const personMovies  = this.API.getPersonMoviesByPersonId(this.personId, this.page);
+
+    forkJoin([personDetails, personMovies]).subscribe(res => {
+      this.loading = false;
+
+      this.person     = res[0];
+      this.page       = res[1].page;
+      this.movies     = res[1].results;
+      this.totalPages = res[1].total_pages;
+    });
   }
 
   back() {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute }               from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription }                 from 'rxjs';
 import { Movie }                        from '../../shared/models/movie.model';
 import { RequestService }               from '../../shared/services/request.service';
@@ -21,6 +21,8 @@ export class GenresComponent implements OnInit, OnDestroy {
   genreId:    number;
   totalPages: number;
 
+  loading = false;
+
   subscription: Subscription;
 
   constructor(
@@ -28,6 +30,7 @@ export class GenresComponent implements OnInit, OnDestroy {
     private genreService:     GenreIdService,
     private activatedRoute:   ActivatedRoute,
     private urlParamsService: UrlParamsService,
+    private router:           Router
   ) {
     this.subscription = this.genreService.getGenreId().subscribe(data => {
       this.genreId = data;
@@ -50,11 +53,17 @@ export class GenresComponent implements OnInit, OnDestroy {
   }
 
   getMovies() {
+    this.loading = true;
+
     this.API.getMoviesByGenreId(this.genreId, this.page)
       .subscribe(res => {
+        this.loading = false;
+
         this.page       = res.page;
         this.movies     = res.results;
         this.totalPages = res.total_pages
+      }, error => {
+        this.router.navigateByUrl('not-found');
       });
   }
 

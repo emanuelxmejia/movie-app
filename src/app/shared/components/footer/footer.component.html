@@ -1,4 +1,4 @@
-<div class="footer">
+<div class="footer" *ngIf="!loading && page <= totalPages">
     <div class="row row--flex"
     [ngClass]="{ 'row--flex-end': page == 1, 'row--flex-space-between': page != 1 }">
         <div class="col"

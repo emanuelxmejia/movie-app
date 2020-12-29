@@ -17,6 +17,8 @@ export class BrowseComponent implements OnInit {
 
   page:       number;
   totalPages: number;
+
+  loading = false;
  
   constructor(
     private router:           Router,
@@ -38,8 +40,12 @@ export class BrowseComponent implements OnInit {
   }
 
   getMovies() {
+    this.loading = true;
+
     this.API.getMoviesByCategoryName(this.categoryName, this.page)
       .subscribe(res => {
+        this.loading = false;
+  
         this.page       = res.page;
         this.movies     = res.results;
         this.totalPages = res.total_pages;

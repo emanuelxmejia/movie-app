@@ -7,7 +7,7 @@ import { Person }              from '../models/person.model';
 export class NoPersonPicturePipe implements PipeTransform {
 
   transform(person: Person): string {
-    const picturePath = 'http://image.tmdb.org/t/p/original';
+    const picturePath = 'https://image.tmdb.org/t/p/original';
 
     if (person.profile_path) {
       return picturePath + person.profile_path;

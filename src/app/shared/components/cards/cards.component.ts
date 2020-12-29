@@ -9,7 +9,10 @@ import { Movie }                    from '../../models/movie.model';
 })
 export class CardsComponent implements OnInit {
 
-  @Input() movies: Movie[];
+  @Input() movies:  Movie[];
+  @Input() loading: boolean;
+
+  cardsLoading = Array(20);
 
   constructor(private router: Router) {}
 

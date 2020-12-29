@@ -6,7 +6,8 @@
             (click)="goBack();">
                 west
             </span>
-            <div class="movie__raiting movie__raiting--mobile">
+            <div class="movie__raiting movie__raiting--mobile"
+            *ngIf="!loading">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart-fill" fill="#cc4785" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
                 </svg>
@@ -16,11 +17,11 @@
             </div>
         </div>
         <div class="row">
-            <h2 class="movie__title">
+            <h2 class="movie__title" *ngIf="!loading">
                 {{ movieDetails.title }}
             </h2>
             <div class="row row--flex row--flex-align-center row--flex-space-between">
-                <div>
+                <div *ngIf="!loading">
                     <span>
                         {{ movieDetails.release_date | date:'yyyy' }}
                     </span> &middot;
@@ -33,7 +34,7 @@
                         {{ movieDetails.runtime }} min
                     </span>
                 </div>
-                <div class="movie__raiting movie__raiting--desktop">
+                <div class="movie__raiting movie__raiting--desktop" *ngIf="!loading">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart-fill" fill="#cc4785" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
                     </svg>
@@ -47,15 +48,18 @@
     <div class="movie__details">
         <div class="col">
             <div class="row">
-                <p class="text text--bold">
+                <app-loader *ngIf="loading"></app-loader>
+                <p class="text text--bold"
+                *ngIf="!loading">
                     OVERVIEW
                 </p>
-                <small>
+                <app-loader widthP="100" *ngIf="loading"></app-loader>
+                <small *ngIf="!loading && movieDetails.overview">
                     {{ movieDetails.overview }}
                 </small>
             </div>
             <div class="row"
-            *ngIf="movieDetails.tagline">
+            *ngIf="!loading && movieDetails.tagline">
                 <p class="text text--bold">
                     TAGLINE
                 </p>
@@ -65,7 +69,8 @@
             </div>
         </div>
         <div class="col col--overflow-hidden">
-            <div class="row row--grid row--mt-16">
+            <div class="row row--grid row--mt-16"
+            *ngIf="!loading">
                 <button
                     type="button"
                     class="btn btn--black"
@@ -81,10 +86,19 @@
                 </a>
             </div>
             <div class="row">
-                <p class="text text--bold">
+                <app-loader width="100"*ngIf="loading"></app-loader>
+                <p class="text text--bold" *ngIf="!loading">
                     STARRING
                 </p>
-                <div class="slider">
+                <div class="slider" *ngIf="loading">
+                    <app-loader width="60" height="60" circle="true" *ngIf="loading"></app-loader>
+                    <app-loader width="60" height="60" circle="true" *ngIf="loading"></app-loader>
+                    <app-loader width="60" height="60" circle="true" *ngIf="loading"></app-loader>
+                    <app-loader width="60" height="60" circle="true" *ngIf="loading"></app-loader>
+                    <app-loader width="60" height="60" circle="true" *ngIf="loading"></app-loader>
+                    <app-loader width="60" height="60" circle="true" *ngIf="loading"></app-loader>
+                </div>
+                <div class="slider" *ngIf="!loading">
                     <div class="slider__slide"
                     *ngFor="let person of movieCast"
                     (click)="goToPersonByPersonId(person.id)">
@@ -99,15 +113,18 @@
         </div>
     </div>
     <div class="movie__recommendations">
-        <h2>Recommended</h2>
+        <app-loader width="130" *ngIf="loading"></app-loader>
+        <h2 *ngIf="!loading">
+            Recommended
+        </h2>
         <p class="text"
-        *ngIf="movies.length == 0">
+        *ngIf="!loading && movies.length == 0">
             No movies recommended
         </p>
 
-        <app-cards [movies]="movies" *ngIf="movies.length > 0"></app-cards>
+        <app-cards [movies]="movies" [loading]="loading"></app-cards>
     </div>
     <div class="movie__footer">
-        <app-footer [page]="page" [totalPages]="totalPages"></app-footer>
+        <app-footer [page]="page" [totalPages]="totalPages" [loading]="loading"></app-footer>
     </div>
 </div>

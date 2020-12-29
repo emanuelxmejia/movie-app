@@ -7,7 +7,7 @@ import { Movie }               from '../models/movie.model';
 export class NoMoviePosterPipe implements PipeTransform {
 
   transform(movie: Movie): string {
-    const posterPath = 'http://image.tmdb.org/t/p/w500';
+    const posterPath = 'https://image.tmdb.org/t/p/w300';
 
     if (movie.poster_path) {
       return posterPath + movie.poster_path;

@@ -39,6 +39,28 @@ body {
     display: none;
 }
 
+/* page styles
+-------------- */
+.page {
+    position: relative;
+}
+
+.page__header {
+    padding: 20px 10px;
+}
+
+.page__title {
+    margin: 0;
+}
+
+.page__body {
+    padding: 0 10px;
+}
+
+.page__footer {
+    padding: 10px;
+}
+
 /* row styles
 ------------- */
 .row {
@@ -125,12 +147,18 @@ body {
     padding: 3px;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1025px) {
+    .page__header {
+        padding: 20px;
+    }
 
-}
+    .page__body {
+        padding: 0 20px;
+    }
 
-@media only screen and (min-width: 1024px) {
-
+    .page__footer {
+        padding: 20px;
+    }
 }
 
 @media only screen and (min-width: 1366px) {

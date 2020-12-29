@@ -10,6 +10,7 @@ export class FooterComponent implements OnInit {
 
   @Input() page:       number;
   @Input() totalPages: number;
+  @Input() loading:    boolean;
 
   currentPagePath: string;
 
@@ -21,7 +22,7 @@ export class FooterComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.currentPagePath = `/${ this.activatedRoute.snapshot.url[0].path }/${ this.activatedRoute.snapshot.url[1].path }`;
       }
-    })
+    });
   }
 
   ngOnInit(): void {
