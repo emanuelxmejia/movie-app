@@ -15,25 +15,25 @@
             [routerLink]="['/browse', 'popular']"
             routerLinkActive="active"
             (click)="isMenuOpen = !isMenuOpen">
-                <a class="menu__link">
+                <span class="menu__link">
                     Popular
-                </a>
+                </span>
             </li>
             <li class="menu__item"
             [routerLink]="['/browse', 'top_rated']"
             routerLinkActive="active"
             (click)="isMenuOpen = !isMenuOpen">
-                <a class="menu__link">
+                <span class="menu__link">
                     Top Rated
-                </a>
+                </span>
             </li>
             <li class="menu__item"
             [routerLink]="['/browse', 'upcoming']"
             routerLinkActive="active"
             (click)="isMenuOpen = !isMenuOpen">
-                <a class="menu__link">
+                <span class="menu__link">
                     Upcoming
-                </a>
+                </span>
             </li>
         </ul>
         <p class="sidebar__section">
@@ -45,9 +45,9 @@
             *ngFor="let movieGenre of movieGenres"
             routerLinkActive="active"
             (click)="isMenuOpen = !isMenuOpen; sendGenreId(movieGenre);">
-                <a class="menu__link">
+                <span class="menu__link">
                     {{ movieGenre.name }}
-                </a>
+                </span>
             </li>
         </ul>
     </div>

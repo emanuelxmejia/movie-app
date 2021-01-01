@@ -1,27 +1,19 @@
-# MovieApp
+# Cinema
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.3.
+This was a project that I set out to do after finishing an Angular course.
 
-## Development server
+Cinema is a web application where different movies are shown according to the category you select. Clicking on the image of the movie, it will take you to another path where you can see information about the selected movie, for example: year of release, genres to which it belongs, duration, actors and more.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+You will receive recommendations according to the movie you have selected.
 
-## Code scaffolding
+You can also enter the profile of an actor who has participated in the film, to see their information, the application will recommend movies where the actor has appeared.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The application uses Angular Router, with query params for pagination, which will keep the page you are on, even if you refresh and you can also navigate through the url.
 
-## Build
+All design was created by me, from scratch, using only `CSS` with the `BEM methodology` and putting `Mobile First` into practice, which adapted to any screen size.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The information comes from [TMDB](https://www.themoviedb.org/documentation/api)'s API.
 
-## Running unit tests
+It was a fun project to do and I am very satisfied with the result.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## [You can check it here](https://emanuelxmejia.github.io/movie-app/#/browse/popular)
