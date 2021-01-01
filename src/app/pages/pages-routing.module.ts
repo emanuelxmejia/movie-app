@@ -30,10 +30,6 @@ const routes: Routes = [
     component: SearchComponent
   },
   {
-    path: 'search/:searchValue/:page',
-    component: SearchComponent
-  },
-  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'browse/popular'
